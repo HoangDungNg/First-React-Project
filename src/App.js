@@ -1,23 +1,59 @@
-import logo from './logo.svg';
 import './App.css';
-
+import Header from './components/Header';
+import { useColorMode } from 'theme-ui';
+import { useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import axios from 'axios';
+import Punklist from './components/Punklist';
+import Main from './components/Main';
+// userState: pulling data from OpenSea and store it in a variable (array)
+// userEffect: API request
+// before using userState and userEffect, installing anxios ('yarn add axios' or 'npm install axios')
 function App() {
+  // initialize empty arrays
+  // punkListData: store all the NFTs
+  const [punkListData, setPunkListData] = useState([]);
+  const [selectedPunk, setSelectedPunk] = useState(0);
+  const [colorMode, setColorMode] = useColorMode();
+
+  useEffect(() => {
+    const getMyNFTs = async () => {
+      const openseaData = await axios.get(
+        'https://testnets-api.opensea.io/api/v1/assets?order_direction=asc&offset=0&limit=20&asset_contract_addresses=0x8E32dD44C090177EB0D536DA486131B05888970A'
+      );
+      //console.log(openseaData.data.assets);
+      setPunkListData(openseaData.data.assets);
+    };
+
+    getMyNFTs();
+  }, []);
+
+  // listen to prefferred color of OS users
+  useMediaQuery(
+    {
+      query: '(prefer-color-scheme: dark)',
+    },
+    undefined,
+    (isDarkPreffered) => setColorMode(isDarkPreffered ? 'dark' : 'light')
+  );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    // set condition for assigning variables to Main and PunkList only
+    // after the API call is finished (returned an array of punks)
+    <div className="app">
+      <Header setColorMode={setColorMode} colorMode={colorMode} />
+      {punkListData.length > 0 && (
+        <>
+          <Main
+            selectedPunk={selectedPunk}
+            punkListData={punkListData}
+            colorMode={colorMode}
+          />
+          <Punklist
+            punkListData={punkListData}
+            setSelectedPunk={setSelectedPunk}
+          />
+        </>
+      )}
     </div>
   );
 }
