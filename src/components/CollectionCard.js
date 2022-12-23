@@ -2,7 +2,6 @@
 import React from 'react';
 /** @jsxImportSource theme-ui */
 import weth from '../assets/weth.png';
-import './CollectionCard.css';
 const CollectionCard = ({ id, name, traits, image }) => {
   return (
     <div className="collectionCard" sx={{ backgroundColor: 'secondary' }}>

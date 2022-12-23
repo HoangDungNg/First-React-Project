@@ -1,10 +1,11 @@
 import React from 'react';
 /** @jsxImportSource theme-ui */
-import './Header.css';
 import punkLogo from '../assets/header/cryptopunk-logo.png';
 import searchIcon from '../assets/header/search.png';
 import themeSwitchIcon from '../assets/header/theme-switch.png';
-const Header = ({ setColorMode, colorMode }) => {
+const Header = ({ setColorMode, colorMode, setOpen }) => {
+  const onOpenModal = () => setOpen(true);
+
   return (
     <div className="header">
       <div className="logoContainer">
@@ -38,7 +39,10 @@ const Header = ({ setColorMode, colorMode }) => {
         </div>
       </div>
 
-      <div className="loginButton"> GET IN</div>
+      <div className="loginButton" onClick={onOpenModal}>
+        {' '}
+        GET IN
+      </div>
     </div>
   );
 };

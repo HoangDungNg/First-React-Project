@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'theme-ui';
 import theme from './theme';
 import './index.css';
+import './components/Header.css';
+import './components/Login.css';
+import './components/CollectionCard.css';
+import './components/Main.css';
+import './components/Punklist.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

@@ -6,6 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import axios from 'axios';
 import Punklist from './components/Punklist';
 import Main from './components/Main';
+import Login from './components/Login';
 // userState: pulling data from OpenSea and store it in a variable (array)
 // userEffect: API request
 // before using userState and userEffect, installing anxios ('yarn add axios' or 'npm install axios')
@@ -14,6 +15,7 @@ function App() {
   // punkListData: store all the NFTs
   const [punkListData, setPunkListData] = useState([]);
   const [selectedPunk, setSelectedPunk] = useState(0);
+  const [open, setOpen] = useState(false);
   const [colorMode, setColorMode] = useColorMode();
 
   useEffect(() => {
@@ -40,7 +42,12 @@ function App() {
     // set condition for assigning variables to Main and PunkList only
     // after the API call is finished (returned an array of punks)
     <div className="app">
-      <Header setColorMode={setColorMode} colorMode={colorMode} />
+      <Header
+        setColorMode={setColorMode}
+        colorMode={colorMode}
+        setOpen={setOpen}
+      />
+      <Login open={open} setOpen={setOpen} />
       {punkListData.length > 0 && (
         <>
           <Main

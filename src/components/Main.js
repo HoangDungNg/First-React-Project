@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 /** @jsxImportSource theme-ui */
-import './Main.css';
 import instagramLogo from '../assets/owner/instagram.png';
 import darkInstagram from '../assets/owner/dark_instagram.png';
 import twitterLogo from '../assets/owner/twitter.png';
